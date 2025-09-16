@@ -1,12 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using MiddelbyReolsystemMVVM.Models;
+using Newtonsoft.Json;
+using Formatting = Newtonsoft.Json.Formatting;
+
 
 namespace MiddelbyReolsystemMVVM.Repositories
 {
-    internal class FileRackRepository
+    public class FileRackRepository : IFileRackRepository
     {
+        private readonly string _filePath;
+
+        private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+        };
+
+        public FileRackRepository(string filePath)
+        {
+            _filePath = filePath;
+            if (!File.Exists(_filePath))
+            {
+                File.WriteAllText(_filePath, "[]");
+            }
+        }
+
+        public IEnumerable<Rack> GetAll()
+        {
+            if (!File.Exists(_filePath))
+            {
+                return new List<Rack>();
+            }
+            var json = File.ReadAllText(_filePath);
+            return JsonConvert.DeserializeObject<List<Rack>>(json, _jsonSettings) ?? new List<Rack>();
+        }
+
+        public Rack GetRack(Rack rack)
+        {
+            GetAll().FirstOrDefault(r => r.RackNumber == rack.RackNumber);      // Returnerer alle rackobjekter, og søger gennem collectionen efter et rack med samme RackNumber som det givne rack
+            throw new NotImplementedException();
+        }
+
+        public void AddRack(Rack rack)
+        {
+            var racks = GetAll().ToList();
+            racks.Add(rack);
+            SaveAll(racks);
+        }
+
+        public void DeleteRack(Rack rack)
+        {
+            var racks = GetAll().ToList();
+            racks.RemoveAll(r => r.RackNumber == rack.RackNumber);
+            SaveAll(racks);
+        }
+
+        public void UpdateRack(Rack rack)
+        {
+            var racks = GetAll().ToList();
+            var index = racks.FindIndex(r => r.RackNumber == rack.RackNumber);
+            if (index != -1) throw new KeyNotFoundException("Reolnummer blev ikke fundet");
+
+            racks[index] = rack;
+            SaveAll(racks);
+        }
+        public void SaveAll(IEnumerable<Rack> racks)
+        {
+            var json = JsonConvert.SerializeObject(racks, _jsonSettings);
+            File.WriteAllText(_filePath, json);
+        }
     }
 }
