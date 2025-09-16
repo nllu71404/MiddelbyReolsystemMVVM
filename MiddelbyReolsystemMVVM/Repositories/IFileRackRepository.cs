@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,6 @@ namespace MiddelbyReolsystemMVVM.Repositories
         void UpdateRack(Rack rack);
         void DeleteRack(Rack rack);
 
-        void SaveAll(IEnumerable<Rack> racks);
+        void SaveAll(List<Rack> racks);
     }
 }

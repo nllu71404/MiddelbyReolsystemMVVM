@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using MiddelbyReolsystemMVVM.Models;
 using Newtonsoft.Json;
+using Remotion.Linq.Collections;
 using Formatting = Newtonsoft.Json.Formatting;
 
 
@@ -37,7 +39,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
                 return new List<Rack>();
             }
             var json = File.ReadAllText(_filePath);
-            return JsonConvert.DeserializeObject<List<Rack>>(json, _jsonSettings) ?? new List<Rack>();
+            return JsonConvert.DeserializeObject<List<Rack>>(json, _jsonSettings) ?? new List<Rack> { };
         }
 
         public Rack GetRack(Rack rack)
@@ -69,7 +71,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
             racks[index] = rack;
             SaveAll(racks);
         }
-        public void SaveAll(IEnumerable<Rack> racks)
+        public void SaveAll(List<Rack> racks)
         {
             var json = JsonConvert.SerializeObject(racks, _jsonSettings);
             File.WriteAllText(_filePath, json);
