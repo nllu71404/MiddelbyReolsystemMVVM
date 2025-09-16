@@ -48,7 +48,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         }
         private void ExecuteShowLedige(object parameter)
         {
-            var ledigeRacks = _rackService.GetRacksByStatus(RackStatus.Other);
+            var ledigeRacks = _rackService.GetRacksByStatus(RackStatus.Available);
             UpdateDisplayedRacks(ledigeRacks);
         }
         private void ExecuteShowOptaget(object parameter)
@@ -59,42 +59,17 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 
         private void ExecuteShowAndet(object parameter)
         {
-            //System.Diagnostics.Debug.WriteLine("ExecuteShowLedige kaldt!");
-            var andetRacks = _rackService.GetRacksByStatus(RackStatus.Available);
-            //System.Diagnostics.Debug.WriteLine($"Fandt {ledigeRacks.Count()} ledige reoler");
+            var andetRacks = _rackService.GetRacksByStatus(RackStatus.Other);
             UpdateDisplayedRacks(andetRacks);
         }
         
         private void UpdateDisplayedRacks(IEnumerable<Rack> racks)
         {
-            //System.Diagnostics.Debug.WriteLine($"UpdateDisplayedRacks kaldt med {racks.Count()} reoler");
             var rackList = racks.ToList();
             DisplayedRacks = new ObservableCollection<Rack>(rackList);
 
-            //System.Diagnostics.Debug.WriteLine($"DisplayedRacks har nu {DisplayedRacks.Count} elementer");
-
             OnPropertyChanged(nameof(DisplayedRacks));
-            /*
-            foreach (var rack in rackList)
-            {
-                DisplayedRacks.Add(rack);
-            }
-
-            try
-            {
-                foreach (var rack in racks)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Forsøger at tilføje reol: {rack.RackNumber}");
-                    DisplayedRacks.Add(rack);
-                    System.Diagnostics.Debug.WriteLine($"Tilføjet reol: {rack.RackNumber}");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"FEJL i UpdateDisplayedRacks: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-            }
-            */
+            
 
             
         }
