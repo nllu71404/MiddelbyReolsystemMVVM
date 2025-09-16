@@ -9,6 +9,6 @@ namespace MiddelbyReolsystemMVVM.Services
 {
     public interface IRackService
     {
-        IEnumerable<Rack> GetPredefinedRacks();
+        IEnumerable<Rack> InitializePredefinedRacks();
     }
 }
