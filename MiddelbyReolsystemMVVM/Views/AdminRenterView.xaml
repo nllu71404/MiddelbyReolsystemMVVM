@@ -1,0 +1,92 @@
+﻿<Window x:Class="MiddelbyReolsystemMVVM.Views.AdminRenterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="AdminRenterView" Height="600" Width="900"
+        Background="Beige">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Topbar: ens knapper -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0,10">
+            <Button Content="Reoloversigt"
+                    Width="160" Height="36" Padding="16,8" Margin="6,0"
+                    Background="LightPink"
+                    Command="{Binding GoRackOverview}"/>
+
+            <Button Content="Administrér reollejere"
+                    Width="160" Height="36" Padding="16,8" Margin="6,0"
+                    Background="LightGray"
+                    IsEnabled="False"/>
+
+            <Button Content="Administrér reoler"
+                    Width="160" Height="36" Padding="16,8" Margin="6,0"
+                    Background="LightPink"
+                    Command="{Binding GoAdminRack}"/>
+        </StackPanel>
+
+        <!-- Streg under knapperne (samme margin som de andre) -->
+        <Rectangle Grid.Row="1" Height="1" Fill="Black" Margin="10,5"/>
+
+        <!-- resten af dit indhold uændret -->
+        <Grid Grid.Row="2" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0,0,22,0">
+                <TextBlock Text="Fornavn:" Margin="0,0,0,6"/>
+                <TextBox Margin="0,0,0,10"/>
+                <TextBlock Text="Efternavn:" Margin="0,6,0,6"/>
+                <TextBox Margin="0,0,0,10"/>
+                <TextBlock Text="Email:" Margin="0,6,0,6"/>
+                <TextBox Margin="0,0,0,10"/>
+                <TextBlock Text="Telefonnummer:" Margin="0,6,0,6"/>
+                <TextBox Margin="0,0,0,10"/>
+
+                <TextBlock Text="Bankoplysninger:" Margin="0,6,0,6"/>
+                <TextBox Margin="0,0,0,10"/>
+
+                <CheckBox Content="Samtykkeerklæring er underskrevet" Margin="0,10,0,0"/>
+
+                <Button Content="Gem" Width="100" Margin="0,20,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <!-- Liste + knapper (højre) -->
+            <StackPanel Grid.Column="1">
+                <ListBox Height="260" Margin="0,0,0,16">
+                    <ListBoxItem>Gerda Thomsen, Reol 20, Reol 21</ListBoxItem>
+                    <ListBoxItem>Ole Hansen, Reol 11</ListBoxItem>
+                    <ListBoxItem>Kristina Hansen</ListBoxItem>
+                </ListBox>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Opret"   Width="80" Margin="0,0,12,0"/>
+                    <Button Content="Rediger" Width="80" Margin="0,0,12,0"/>
+                    <Button Content="Slet"    Width="80"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!-- FEJLBESKED nederst (synlig og centreret) -->
+        <TextBox Grid.Row="3"
+                 Width="320" Height="28"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Text="Her kan der stå en fejlbesked"
+                 IsReadOnly="True"
+                 Background="White" Foreground="Black"
+                 BorderBrush="DarkGreen" BorderThickness="1"
+                 TextAlignment="Center" Margin="0,10"/>
+    </Grid>
+</Window>
