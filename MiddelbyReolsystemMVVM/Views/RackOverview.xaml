@@ -39,7 +39,7 @@
                             <Run Text="Rack  "/>
                             <Run Text="{Binding RackNumber}"/>
                             <Run Text=" - " />
-                            <Run Text="{Binding RackType}"/>
+                            <Run Text="{Binding RackType.Name, Mode=OneWay}"/>
                         </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

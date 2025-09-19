@@ -16,7 +16,7 @@ namespace MiddelbyReolsystemMVVM.Models
     public class RackType
     {
         public static readonly RackType Standard = new RackType(1, "Med hylder");
-        public static readonly RackType Premium = new RackType(2, "Med hanger");
+        public static readonly RackType Premium = new RackType(2, "Med bøjle");
 
         public int Id { get; private set; }
         public string Name { get; private set; }
