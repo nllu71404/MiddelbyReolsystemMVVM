@@ -1,4 +1,4 @@
-﻿using MiddelbyReolsystemMVVM.Helpers;
+﻿
 using MiddelbyReolsystemMVVM.Viewmodels;
 using System.Text;
 using System.Windows;
@@ -18,10 +18,28 @@ namespace MiddelbyReolsystemMVVM.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+        }
+
+        
+
+        private void OpenRackOverview_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new MainViewModel().OpenRackOverview();
+        }
+
+        private void OpenAdminRenterView_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new MainViewModel().OpenAdminRenterView();
+        }
+
+        private void OpenAdminRackView_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new MainViewModel().OpenAdminRackView();
         }
     }
 }

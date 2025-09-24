@@ -24,8 +24,7 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
             <Button Content="Reoloversigt"
                     Width="160" Height="36" Padding="16,8" Margin="6,0"
-                    Background="LightPink"
-                    Command="{Binding GoRackOverview}"/>
+                    Background="LightPink" Click="OpenRackOverview_Button_Click"/>
 
             <Button Content="Administrér reollejere"
                     Width="160" Height="36" Padding="16,8" Margin="6,0"
@@ -34,8 +33,7 @@
 
             <Button Content="Administrér reoler"
                     Width="160" Height="36" Padding="16,8" Margin="6,0"
-                    Background="LightPink"
-                    Command="{Binding GoAdminRack}"/>
+                    Background="LightPink" Click="OpenAdminRackView_Button_Click"/>
         </StackPanel>
 
         <Rectangle Grid.Row="1" Height="1" Fill="Black" Margin="10,5,10,5" Grid.ColumnSpan="2"/>
@@ -70,7 +68,7 @@
 
                 <Button Content="Gem"
                         Width="100" Margin="0,20,0,0" HorizontalAlignment="Left"
-                        Command="{Binding SaveCommand}"/>
+                        Command="{Binding SaveCommand}" Click="Save_Button_Click"/>
             </StackPanel>
 
             <!-- Liste + knapper (højre) -->
@@ -90,12 +88,9 @@
                 </ListBox>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Opret"   Width="80" Margin="0,0,12,0"
-                            Command="{Binding NewCommand}"/>
-                    <Button Content="Rediger" Width="80" Margin="0,0,12,0"
-                            Command="{Binding EditCommand}"/>
-                    <Button Content="Slet"    Width="80"
-                            Command="{Binding DeleteCommand}"/>
+                    <Button Content="Opret"   Width="80" Margin="0,0,12,0" Click="New_Button_Click"/>
+                    <Button Content="Rediger" Width="80" Margin="0,0,12,0" Click="Edit_Button_Click"/>
+                    <Button Content="Slet"    Width="80" Click="Delete_Button_Click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

@@ -10,6 +10,16 @@ namespace MiddelbyReolsystemMVVM.Services
     public class RenterService : IRenterService
     {
 
+        private static RenterService? _instance;
+        public static RenterService Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new RenterService();
+            }
+            return _instance;
+        }
+
         // Prædefineret liste med lejere
         private readonly List<Renter> renters = new()
         {

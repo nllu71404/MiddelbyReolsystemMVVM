@@ -1,11 +1,10 @@
-﻿using MiddelbyReolsystemMVVM.Helpers.Commands;
-using MiddelbyReolsystemMVVM.Helpers;
-using System;
-using System.Windows.Input;
+﻿using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.Services;
-using System.Collections.ObjectModel;
-using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.ViewModels;
+using MiddelbyReolsystemMVVM.Views;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
@@ -29,22 +28,25 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         {
             _rackService = rackservice;
             DisplayedRacks = new ObservableCollection<Rack>();
-
-            InitializaCommands();
             
         }
-        /*
+
+        public void OpenRackOverview()
         {
-            _ws = ws ?? throw new ArgumentNullException(nameof(ws));
-            GoAdminRenter = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRenterView>());
-            GoAdminRack = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRackView>());
+            var rackOverview = new RackOverview();
+            rackOverview.Show();
         }
-        */
-        private void InitializaCommands()
+
+        public void OpenAdminRenterView()
         {
-            ShowLedigeCommand = new RelayCommand(ExecuteShowLedige);
-            ShowOptagetCommand = new RelayCommand(ExecuteShowOptaget);
-            ShowAndetCommand = new RelayCommand(ExecuteShowAndet);
+            var adminRenterView = new AdminRenterView();
+            adminRenterView.Show();
+        }
+
+        public void OpenAdminRackView()
+        {
+            var adminRackView = new AdminRackView();
+            adminRackView.Show();
         }
         private void ExecuteShowLedige(object parameter)
         {
