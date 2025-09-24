@@ -9,7 +9,7 @@ namespace MiddelbyReolsystemMVVM.Views
         public AdminRackView()
         {
             InitializeComponent();
-            DataContext = new AdminRackViewModel(new WindowService());
+            DataContext = new AdminRackViewModel();
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)

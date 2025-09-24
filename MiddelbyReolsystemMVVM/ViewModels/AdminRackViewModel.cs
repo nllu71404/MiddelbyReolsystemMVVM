@@ -2,20 +2,19 @@
 using MiddelbyReolsystemMVVM.Helpers.Commands;
 using System;
 using System.Windows.Input;
+using MiddelbyReolsystemMVVM.Views;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class AdminRackViewModel
     {
-        private readonly IWindowService _ws;
         public ICommand GoRackOverview { get; }
         public ICommand GoAdminRenter { get; }
 
-        public AdminRackViewModel(IWindowService ws)
+        public AdminRackViewModel()
         {
-            _ws = ws ?? throw new ArgumentNullException(nameof(ws));
-            GoRackOverview = new RelayCommand(_ => _ws.ShowSingleton<Views.RackOverview>());
-            GoAdminRenter = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRenterView>());
+            GoRackOverview = new RelayCommand(_ => (new RackOverview()).Show());
+            GoAdminRenter = new RelayCommand(_ => (new AdminRenterView()).Show());
         }
     }
 }

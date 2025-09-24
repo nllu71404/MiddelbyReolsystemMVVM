@@ -29,7 +29,7 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Source="/Images/MiddelbyLogo.png" Margin="-2,-82,0,0"/>
             
-            <Button Content="Ledige" Command="{Binding ShowLedigeCommand}" HorizontalAlignment="Left" Margin="84,26,0,0" VerticalAlignment="Top"/>
+            <Button Content="Ledige" Command="{Binding ShowLedigeCommand}" HorizontalAlignment="Left" Margin="84,26,0,0" VerticalAlignment="Top" Background="LightPink"/>
             <Button Content="Optagede" Command="{Binding ShowOptagetCommand}" HorizontalAlignment="Left" Margin="149,26,0,0" VerticalAlignment="Top" Background="LightPink"/>
             <Button Content="Andet/reperation" Command="{Binding ShowAndetCommand}" HorizontalAlignment="Left" Margin="224,26,0,0" VerticalAlignment="Top" Background="LightPink"/>
             <ListBox ItemsSource="{Binding DisplayedRacks}" SelectedItem="{Binding SelectedRack}" Margin="38,51,390,64">

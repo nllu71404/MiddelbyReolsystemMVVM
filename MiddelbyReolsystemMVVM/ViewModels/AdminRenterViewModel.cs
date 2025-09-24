@@ -7,12 +7,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using MiddelbyReolsystemMVVM.Views;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class AdminRenterViewModel : BaseViewModel
     {
-        private readonly IWindowService _ws;
         private readonly IRenterService _renterService;
 
         // Navigation mellem knapper
@@ -41,15 +41,14 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public Renter? SelectedRenter { get; set; }
 
         // Constructors - som både kender til WindowService og RenterService
-        public AdminRenterViewModel(IWindowService ws) : this(ws, new RenterService()) { }
+        public AdminRenterViewModel() : this(new RenterService()) { }
 
-        public AdminRenterViewModel(IWindowService ws, IRenterService renterService)
+        public AdminRenterViewModel(IRenterService renterService)
         {
-            _ws = ws ?? throw new ArgumentNullException(nameof(ws));
             _renterService = renterService ?? throw new ArgumentNullException(nameof(renterService));
 
-            GoRackOverview = new RelayCommand(_ => _ws.ShowSingleton<Views.RackOverview>());
-            GoAdminRack = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRackView>());
+            GoRackOverview = new RelayCommand(_ => (new RackOverview()).Show());
+            GoAdminRack = new RelayCommand(_ => (new AdminRackView()).Show());
 
             Renters = new ObservableCollection<Renter>(_renterService.GetAllRenters());
             SelectedRenter = Renters.FirstOrDefault();

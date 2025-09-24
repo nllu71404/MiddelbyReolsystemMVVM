@@ -2,25 +2,23 @@
 using MiddelbyReolsystemMVVM.Helpers.Commands;
 using System;
 using System.Windows.Input;
+using MiddelbyReolsystemMVVM.Views;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class MainViewModel
     {
-        private readonly IWindowService _ws;
-
         public ICommand OpenRackCommand { get; }
         public ICommand OpenRenterCommand { get; }
         public ICommand OpenAdminRackCommand { get; }
 
-        // Kun denne ctor – vi sætter DataContext i code-behind og giver WindowService herfra
-        public MainViewModel(IWindowService ws)
+        // Kommandoerne nedenunder skal åbne de respektive vinduer, og det skal de kende IWindowService for at kunne
+        // Singleton betyder at der kun kan åbnes et vindue af den type ad gangen
+        public MainViewModel()
         {
-            _ws = ws ?? throw new ArgumentNullException(nameof(ws));
-
-            OpenRackCommand = new RelayCommand(_ => _ws.ShowSingleton<Views.RackOverview>());
-            OpenRenterCommand = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRenterView>());
-            OpenAdminRackCommand = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRackView>());
+            OpenRackCommand = new RelayCommand(_ => (new RackOverview()).Show());
+            OpenRenterCommand = new RelayCommand(_ => (new AdminRenterView()).Show());
+            OpenAdminRackCommand = new RelayCommand(_ => (new AdminRackView()).Show());
         }
     }
 }

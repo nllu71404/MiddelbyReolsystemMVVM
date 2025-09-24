@@ -10,7 +10,7 @@ namespace MiddelbyReolsystemMVVM.Views
         {
             InitializeComponent();
             // MVVM: bind til ViewModel (som bruger WindowService til navigation)
-            DataContext = new AdminRenterViewModel(new WindowService());
+            DataContext = new AdminRenterViewModel();
         }
 
         // Bevar state: skjul i stedet for at lukke vinduet

@@ -21,7 +21,7 @@ namespace MiddelbyReolsystemMVVM.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(new WindowService());
+            DataContext = new MainViewModel();
         }
     }
 }
