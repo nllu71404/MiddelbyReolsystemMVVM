@@ -16,14 +16,6 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public ObservableCollection<Rack> DisplayedRacks { get; set; }
         public RackService SelectedRack { get; set; }
 
-        //Opretter Commands
-        public ICommand ShowLedigeCommand { get; private set; }
-        public ICommand ShowOptagetCommand { get; private set; }
-        public ICommand ShowAndetCommand { get; private set; }
-        
-        public ICommand GoAdminRenter { get; }
-        public ICommand GoAdminRack { get; }
-
         public RackViewModel(RackService rackservice)
         {
             _rackService = rackservice;
@@ -48,18 +40,18 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             var adminRackView = new AdminRackView();
             adminRackView.Show();
         }
-        private void ExecuteShowLedige(object parameter)
+        public void ExecuteShowLedige(object parameter)
         {
             var ledigeRacks = _rackService.GetRacksByStatus(RackStatus.Available);
             UpdateDisplayedRacks(ledigeRacks);
         }
-        private void ExecuteShowOptaget(object parameter)
+        public void ExecuteShowOptaget(object parameter)
         {
             var optagetRacks = _rackService.GetRacksByStatus(RackStatus.Occupied);
             UpdateDisplayedRacks(optagetRacks);
         }
 
-        private void ExecuteShowAndet(object parameter)
+        public void ExecuteShowAndet(object parameter)
         {
             var andetRacks = _rackService.GetRacksByStatus(RackStatus.Other);
             UpdateDisplayedRacks(andetRacks);

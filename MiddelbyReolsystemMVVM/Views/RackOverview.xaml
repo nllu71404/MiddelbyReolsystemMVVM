@@ -27,9 +27,9 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Source="/Images/MiddelbyLogo.png" Margin="-2,-82,0,0"/>
             
-            <Button Content="Ledige" Command="{Binding ShowLedigeCommand}" HorizontalAlignment="Left" Margin="84,26,0,0" VerticalAlignment="Top" Background="LightPink"/>
-            <Button Content="Optagede" Command="{Binding ShowOptagetCommand}" HorizontalAlignment="Left" Margin="149,26,0,0" VerticalAlignment="Top" Background="LightPink"/>
-            <Button Content="Andet/reperation" Command="{Binding ShowAndetCommand}" HorizontalAlignment="Left" Margin="224,26,0,0" VerticalAlignment="Top" Background="LightPink"/>
+            <Button Content="Ledige" HorizontalAlignment="Left" Margin="84,26,0,0" VerticalAlignment="Top" Background="LightPink" Click="ShowAvailable_Button_Click"/>
+            <Button Content="Optagede" HorizontalAlignment="Left" Margin="149,26,0,0" VerticalAlignment="Top" Background="LightPink" Click="ShowOccupied_Button_Click"/>
+            <Button Content="Andet/reperation" HorizontalAlignment="Left" Margin="224,26,0,0" VerticalAlignment="Top" Background="LightPink" Click="ShowOther_Button_Click"/>
             <ListBox ItemsSource="{Binding DisplayedRacks}" SelectedItem="{Binding SelectedRack}" Margin="38,51,390,64">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
