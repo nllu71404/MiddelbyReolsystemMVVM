@@ -11,16 +11,16 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class RackViewModel : BaseViewModel
     {
-        private readonly RackService _rackService;
+        //private readonly RackService _rackService;
         public IFileRackRepository _fileRackRepository;
 
         //Opretter ObservableCollection
         public ObservableCollection<Rack> DisplayedRacks { get; set; }
         public RackService SelectedRack { get; set; }
 
-        public RackViewModel(RackService rackservice)
+        public RackViewModel(IFileRackRepository _fileRackRepository)
         {
-            _rackService = rackservice;
+            this._fileRackRepository = _fileRackRepository;
             DisplayedRacks = new ObservableCollection<Rack>();
             
         }

@@ -56,10 +56,10 @@ namespace MiddelbyReolsystemMVVM.Repositories
             SaveAll(renters);
         }
 
-        public void DeleteRenter(int id)
+        public void DeleteRenter(Renter renter)
         {
             var renters = GetAll().ToList();
-            renters.RemoveAll(r => r.Id == id);
+            renters.RemoveAll(r => r.Id == renter.Id);
             SaveAll(renters);
         }
         

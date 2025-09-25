@@ -150,8 +150,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public void DeleteSelected()
         {
             if (SelectedRenter == null) return;
-            var id = SelectedRenter.Id;
-            _fileRenterRepository.DeleteRenter(id);                  
+            _fileRenterRepository.DeleteRenter(SelectedRenter);                  
             SelectedRenter = Renters.FirstOrDefault();
             OnPropertyChanged(nameof(SelectedRenter));
         }

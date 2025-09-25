@@ -26,8 +26,9 @@ namespace MiddelbyReolsystemMVVM.Repositories
 
         public RackService rackService;
 
-        public FileRackRepository(string filePath)
+        public FileRackRepository(string filePath, RackService rackservice)
         {
+            rackService = rackservice;
             _filePath = filePath;
             if (!File.Exists(_filePath))
             {
