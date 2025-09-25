@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using MiddelbyReolsystemMVVM.Models;
+using MiddelbyReolsystemMVVM.Services;
 using Newtonsoft.Json;
 using Remotion.Linq.Collections;
 using Formatting = Newtonsoft.Json.Formatting;
@@ -22,6 +23,8 @@ namespace MiddelbyReolsystemMVVM.Repositories
         {
             Formatting = Formatting.Indented,
         };
+
+        public RackService rackService;
 
         public FileRackRepository(string filePath)
         {
@@ -75,6 +78,11 @@ namespace MiddelbyReolsystemMVVM.Repositories
         {
             var json = JsonConvert.SerializeObject(racks, _jsonSettings);
             File.WriteAllText(_filePath, json);
+        }
+
+        public IEnumerable<Rack> GetRacksByStatus(RackStatus status)
+        {
+            return rackService._predefinedRacks.Where(r => r.RackStatus == status);
         }
     }
 }

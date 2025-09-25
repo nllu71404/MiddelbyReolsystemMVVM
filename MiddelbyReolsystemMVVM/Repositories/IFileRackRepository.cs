@@ -17,5 +17,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
         void DeleteRack(Rack rack);
 
         void SaveAll(List<Rack> racks);
+
+        public IEnumerable<Rack> GetRacksByStatus(RackStatus status);
     }
 }

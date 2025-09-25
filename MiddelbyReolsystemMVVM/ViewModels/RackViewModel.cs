@@ -1,4 +1,5 @@
 ﻿using MiddelbyReolsystemMVVM.Models;
+using MiddelbyReolsystemMVVM.Repositories;
 using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.ViewModels;
 using MiddelbyReolsystemMVVM.Views;
@@ -11,6 +12,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
     public class RackViewModel : BaseViewModel
     {
         private readonly RackService _rackService;
+        public IFileRackRepository _fileRackRepository;
 
         //Opretter ObservableCollection
         public ObservableCollection<Rack> DisplayedRacks { get; set; }
@@ -42,18 +44,18 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         }
         public void ExecuteShowLedige(object parameter)
         {
-            var ledigeRacks = _rackService.GetRacksByStatus(RackStatus.Available);
+            var ledigeRacks = _fileRackRepository.GetRacksByStatus(RackStatus.Available);
             UpdateDisplayedRacks(ledigeRacks);
         }
         public void ExecuteShowOptaget(object parameter)
         {
-            var optagetRacks = _rackService.GetRacksByStatus(RackStatus.Occupied);
+            var optagetRacks = _fileRackRepository.GetRacksByStatus(RackStatus.Occupied);
             UpdateDisplayedRacks(optagetRacks);
         }
 
         public void ExecuteShowAndet(object parameter)
         {
-            var andetRacks = _rackService.GetRacksByStatus(RackStatus.Other);
+            var andetRacks = _fileRackRepository.GetRacksByStatus(RackStatus.Other);
             UpdateDisplayedRacks(andetRacks);
         }
         

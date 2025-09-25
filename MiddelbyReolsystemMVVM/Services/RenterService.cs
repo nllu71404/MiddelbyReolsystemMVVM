@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiddelbyReolsystemMVVM.Services
 {
-    public class RenterService : IRenterService
+    public class RenterService 
     {
 
         private static RenterService? _instance;
@@ -21,7 +21,7 @@ namespace MiddelbyReolsystemMVVM.Services
         }
 
         // Prædefineret liste med lejere
-        private readonly List<Renter> renters = new()
+        public List<Renter> renters = new()
         {
             new Renter("Jens", "Hansen", "jegharenbondegaard@flex.dk", "23559356", "1234567890", true),
             new Renter("Gerda", "Jensen", "gerdajens@email.dk", "94113737", "2345921536", true),

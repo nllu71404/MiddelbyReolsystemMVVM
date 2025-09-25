@@ -3,17 +3,9 @@ using MiddelbyReolsystemMVVM.Models;
 
 namespace MiddelbyReolsystemMVVM.Services
 {
-    public class RackService : IRackService
+    public class RackService 
     {
-        /*
-        private static IEnumerable<Rack> _racks = new List<Rack>();
-
-        public RackService()
-        {
-            _racks = InitializePredefinedRacks();
-        }
-        */
-
+       
 
         public List<Rack> _predefinedRacks = new List<Rack>
         {
@@ -107,10 +99,7 @@ namespace MiddelbyReolsystemMVVM.Services
 
         };
 
-        public IEnumerable<Rack> GetRacksByStatus(RackStatus status)
-        {
-            return _predefinedRacks.Where(r => r.RackStatus == status);
-        }
+       
 
     }
 
