@@ -13,7 +13,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
         Renter GetRenter(Renter renter);
         void AddRenter(Renter renter);
         void UpdateRenter(Renter renter);
-        void DeleteRenter(Renter renter);
+        void DeleteRenter(int id);
 
         void SaveAll(List<Renter> renter);
     }

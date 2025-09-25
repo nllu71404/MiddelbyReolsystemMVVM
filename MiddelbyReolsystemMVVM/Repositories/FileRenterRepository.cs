@@ -34,7 +34,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
 
         public IEnumerable<Renter> GetAll()
         {
-            if (File.Exists(_filepathRenter))
+            if (!File.Exists(_filepathRenter))
             {
                 return new List<Renter>();
             }
@@ -56,10 +56,10 @@ namespace MiddelbyReolsystemMVVM.Repositories
             SaveAll(renters);
         }
 
-        public void DeleteRenter(Renter renter)
+        public void DeleteRenter(int id)
         {
             var renters = GetAll().ToList();
-            renters.RemoveAll(r => r.Id == renter.Id);
+            renters.RemoveAll(r => r.Id == id);
             SaveAll(renters);
         }
         

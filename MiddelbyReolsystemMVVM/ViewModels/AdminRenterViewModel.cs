@@ -28,7 +28,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 
         // Data til UI
         public ObservableCollection<Renter> Renters { get; }
-        public Renter SelectedRenter { get; set; } //Vi har fjernet ? 
+        public Renter? SelectedRenter { get; set; } 
 
 
         // Constructors - som både kender til WindowService og RenterService
@@ -95,7 +95,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 message = "FEJL: Du skal afkrydse samtykkeerklæringen!";
                 return false;
             }
-            message = "";
+            message = "Reollejer gemt korrekt!";
             return true;
         }
 
@@ -128,7 +128,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             OnPropertyChanged(nameof(SelectedRenter));
         }
 
-        // ---------- Simple Edit/Delete så bindings ikke fejler ---------- SPØRG LAURA OM FORKLARING!
+        // ---------- Simple Edit/Delete så bindings ikke fejler ---------- FIND UD AF HVORDAN MAN KAN OVERSKRIVE DET ÆLDRE REOLLEJER-OBJEKT
         public void LoadFromSelected()
         {
             if (SelectedRenter == null) return;
@@ -149,8 +149,9 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 
         public void DeleteSelected()
         {
-                      
-            _fileRenterRepository.DeleteRenter(SelectedRenter);                  
+            if (SelectedRenter == null) return;
+            var id = SelectedRenter.Id;
+            _fileRenterRepository.DeleteRenter(id);                  
             SelectedRenter = Renters.FirstOrDefault();
             OnPropertyChanged(nameof(SelectedRenter));
         }
