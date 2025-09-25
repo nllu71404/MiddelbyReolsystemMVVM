@@ -1,29 +1,17 @@
-﻿using MiddelbyReolsystemMVVM.Helpers;
-using MiddelbyReolsystemMVVM.Helpers.Commands;
-using MiddelbyReolsystemMVVM.Models;
+﻿using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.ViewModels;       
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using MiddelbyReolsystemMVVM.Views;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class AdminRenterViewModel : BaseViewModel
     {
-        private readonly IWindowService _ws;
         private readonly IRenterService _renterService;
-
-        // Navigation mellem knapper
-        public ICommand GoRackOverview { get; }
-        public ICommand GoAdminRack { get; }
-
-        // Kommandoer
-        public ICommand NewCommand { get; }
-        public ICommand SaveCommand { get; }
-        public ICommand EditCommand { get; }
-        public ICommand DeleteCommand { get; }
 
         // Inputs til TextBoxes (Som skal være TwoWay)
         public string FirstName { get; set; } = "";
@@ -41,29 +29,38 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public Renter? SelectedRenter { get; set; }
 
         // Constructors - som både kender til WindowService og RenterService
-        public AdminRenterViewModel(IWindowService ws) : this(ws, new RenterService()) { }
+        public AdminRenterViewModel() : this(RenterService.Instance()) { }
 
-        public AdminRenterViewModel(IWindowService ws, IRenterService renterService)
+        public AdminRenterViewModel(IRenterService renterService)
         {
-            _ws = ws ?? throw new ArgumentNullException(nameof(ws));
-            _renterService = renterService ?? throw new ArgumentNullException(nameof(renterService));
-
-            GoRackOverview = new RelayCommand(_ => _ws.ShowSingleton<Views.RackOverview>());
-            GoAdminRack = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRackView>());
+            _renterService = renterService;
 
             Renters = new ObservableCollection<Renter>(_renterService.GetAllRenters());
             SelectedRenter = Renters.FirstOrDefault();
-
-            // Opret/Gem
-            NewCommand = new RelayCommand(_ => ClearInputs());
-            SaveCommand = new RelayCommand(_ => SaveNew());
-
-            EditCommand = new RelayCommand(_ => LoadFromSelected(), _ => SelectedRenter != null);
-            DeleteCommand = new RelayCommand(_ => DeleteSelected(), _ => SelectedRenter != null);
+        }
+        // Navigation
+        public void OpenRackOverview()
+        {
+            var rackOverview = new RackOverview();
+            rackOverview.Show();
         }
 
+        public void OpenAdminRenterView()
+        {
+            var adminRenterView = new AdminRenterView();
+            adminRenterView.Show();
+        }
+
+        public void OpenAdminRackView()
+        {
+            var adminRackView = new AdminRackView();
+            adminRackView.Show();
+        }
+
+
         // ---------- Workflow ----------
-        private void ClearInputs()
+
+        public void ClearInputs()
         {
             FirstName = LastName = Email = PhoneNumber = BankInformation = "";
             ConsentGiven = false;
@@ -79,7 +76,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             OnPropertyChanged(nameof(ErrorMessage));
         }
 
-        private bool ValidateInputs(out string message)
+        public bool ValidateInputs(out string message)
         {
             if (string.IsNullOrWhiteSpace(FirstName) ||
                 string.IsNullOrWhiteSpace(LastName) ||
@@ -99,7 +96,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             return true;
         }
 
-        private void SaveNew()
+        public void SaveNew()
         {
             // nulstil fejl
             ErrorMessage = "";
@@ -128,7 +125,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         }
 
         // ---------- Simple Edit/Delete så bindings ikke fejler ----------
-        private void LoadFromSelected()
+        public void LoadFromSelected()
         {
             if (SelectedRenter == null) return;
             FirstName = SelectedRenter.FirstName;
@@ -146,7 +143,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             OnPropertyChanged(nameof(ConsentGiven));
         }
 
-        private void DeleteSelected()
+        public void DeleteSelected()
         {
             if (SelectedRenter == null) return;
 

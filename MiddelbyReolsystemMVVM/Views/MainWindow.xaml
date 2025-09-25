@@ -20,12 +20,9 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left"
                     Margin="214,10,0,10" Grid.ColumnSpan="2">
-            <Button Content="Reoloversigt" Margin="5" Padding="10" Background="LightPink"
-                    Command="{Binding OpenRackCommand}"/>
-            <Button Content="Administrér reollejere" Margin="5" Padding="10" Background="LightPink"
-                    Command="{Binding OpenRenterCommand}"/>
-            <Button Content="Administrér reoler" Margin="5" Padding="10" Background="LightPink"
-                    Command="{Binding OpenAdminRackCommand}"/>
+            <Button Content="Reoloversigt" Margin="5" Padding="10" Background="LightPink" Click="OpenRackOverview_Button_Click"/>
+            <Button Content="Administrér reollejere" Margin="5" Padding="10" Background="LightPink" Click="OpenAdminRenterView_Button_Click"/>
+            <Button Content="Administrér reoler" Margin="5" Padding="10" Background="LightPink" Click="OpenAdminRackView_Button_Click"/>
         </StackPanel>
 
         <Rectangle Grid.Row="1" Height="1" Fill="Black" Margin="10,5,10,5" Grid.ColumnSpan="2"/>

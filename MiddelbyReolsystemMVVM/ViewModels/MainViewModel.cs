@@ -1,26 +1,25 @@
-﻿using MiddelbyReolsystemMVVM.Helpers;
-using MiddelbyReolsystemMVVM.Helpers.Commands;
-using System;
-using System.Windows.Input;
+﻿using MiddelbyReolsystemMVVM.Views;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class MainViewModel
     {
-        private readonly IWindowService _ws;
-
-        public ICommand OpenRackCommand { get; }
-        public ICommand OpenRenterCommand { get; }
-        public ICommand OpenAdminRackCommand { get; }
-
-        // Kun denne ctor – vi sætter DataContext i code-behind og giver WindowService herfra
-        public MainViewModel(IWindowService ws)
+        public void OpenRackOverview()
         {
-            _ws = ws ?? throw new ArgumentNullException(nameof(ws));
+            var rackOverview = new RackOverview();
+            rackOverview.Show();
+        }
 
-            OpenRackCommand = new RelayCommand(_ => _ws.ShowSingleton<Views.RackOverview>());
-            OpenRenterCommand = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRenterView>());
-            OpenAdminRackCommand = new RelayCommand(_ => _ws.ShowSingleton<Views.AdminRackView>());
+        public void OpenAdminRenterView()
+        {
+            var adminRenterView = new AdminRenterView();
+            adminRenterView.Show();
+        }
+
+        public void OpenAdminRackView()
+        {
+            var adminRackView = new AdminRackView();
+            adminRackView.Show();
         }
     }
 }

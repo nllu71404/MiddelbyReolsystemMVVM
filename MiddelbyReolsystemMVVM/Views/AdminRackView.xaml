@@ -10,22 +10,16 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- knapper -->
             <RowDefinition Height="Auto"/>
-            <!-- streg -->
             <RowDefinition Height="*"/>
-            <!-- indhold -->
         </Grid.RowDefinitions>
 
-        <!-- Knapper -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
             <Button Content="Reoloversigt"
-                    Margin="5" Padding="10" Background="LightPink"
-                    Command="{Binding GoRackOverview}"/>
+                    Margin="5" Padding="10" Background="LightPink" Click="OpenRackOverview_Button_Click"/>
 
             <Button Content="Administrér reollejere"
-                    Margin="5" Padding="10" Background="LightPink"
-                    Command="{Binding GoAdminRenter}"/>
+                    Margin="5" Padding="10" Background="LightPink" Click="OpenAdminRenterView_Button_Click"/>
 
             <Button Content="Administrér reoler"
                     Margin="5" Padding="10" Background="LightGray"
