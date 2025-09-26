@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="RackOverview" Height="650" Width="1100"
         MinHeight="520" MinWidth="900"
-        Background="Bisque">
+        Background="Bisque" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Width" Value="160"/>
