@@ -4,42 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="AdminRenterView" Height="600" Width="900"
-        Background="Beige">
-
+        Title="AdminRenterView" Height="650" Width="1100"
+        MinHeight="520" MinWidth="900"
+        Background="Bisque"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <!-- Standard størrelse -->
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Background" Value="#FFFFCCD4"/>
+            <!-- default baggrund -->
+            <Setter Property="Foreground" Value="DarkRed"/>
+            <!-- Custom template -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                      Background="{TemplateBinding Background}"
+                      CornerRadius="25"
+                      BorderBrush="DarkRed"
+                      BorderThickness="2"
+                      Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFCC99A0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+
 
         <!-- Topbar -->
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
-            <Button Content="Reoloversigt"
-                    Width="160" Height="36" Padding="16,8" Margin="6,0"
-                    Background="LightPink" Click="OpenRackOverview_Button_Click"/>
-
-            <Button Content="Administrér reollejere"
-                    Width="160" Height="36" Padding="16,8" Margin="6,0"
-                    Background="LightGray"
-                    IsEnabled="False"/>
-
-            <Button Content="Administrér reoler"
-                    Width="160" Height="36" Padding="16,8" Margin="6,0"
-                    Background="LightPink" Click="OpenAdminRackView_Button_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" >
+            <Button Content="Reoloversigt" Click="OpenRackOverview_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
+            <Button Content="Administrér reollejere" Background="#FFCC99A0" IsEnabled="False"  Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
+            <Button Content="Administrér reoler" Click="OpenAdminRackView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
         </StackPanel>
 
-        <Rectangle Grid.Row="1" Height="1" Fill="Black" Margin="10,5,10,5" Grid.ColumnSpan="2"/>
-
         <!-- Hovedindhold -->
-        <Grid Grid.Row="2" Margin="20,20,20,20" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2" Margin="20,100,20,20" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
@@ -64,16 +75,16 @@
 
                 <CheckBox Content="Samtykkeerklæring er underskrevet"
                           IsChecked="{Binding ConsentGiven, Mode=TwoWay}"
-                          Margin="0,10,0,0"/>
+                          Margin="0,50,0,0"/>
 
                 <Button Content="Gem"
-                        Width="100" Margin="0,20,0,0" HorizontalAlignment="Left"
+                        Width="100" Margin="0,10,0,0" HorizontalAlignment="Left"
                         Command="{Binding SaveCommand}" Click="Save_Button_Click"/>
             </StackPanel>
 
             <!-- Liste + knapper (højre) -->
             <StackPanel Grid.Column="1">
-                <ListBox Height="260" Margin="0,0,0,16"
+                <ListBox Height="416" Margin="0,20,0,16"
                          ItemsSource="{Binding Renters}"
                          SelectedItem="{Binding SelectedRenter}">
                     <ListBox.ItemTemplate>
@@ -96,13 +107,13 @@
         </Grid>
 
         <!-- Fejlbesked nederst -->
-        <TextBox Grid.Row="3"
+        <TextBox
                  Width="320" Height="28"
-                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                 HorizontalAlignment="Left" VerticalAlignment="Top"
                  Text="{Binding ErrorMessage, Mode=OneWay}"
                  IsReadOnly="True"
                  Background="White" Foreground="Black"
-                 BorderBrush="DarkGreen" BorderThickness="1"
-                 TextAlignment="Center" Grid.Column="1"/>
+                 BorderBrush="DarkRed" BorderThickness="1"
+                 TextAlignment="Center" Margin="20,573,0,0"/>
     </Grid>
 </Window>
