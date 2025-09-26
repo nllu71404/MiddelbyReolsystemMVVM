@@ -88,8 +88,8 @@
                 </ListBox>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Opret"   Width="80" Margin="0,0,12,0" Click="New_Button_Click"/>
-                    <Button Content="Rediger" Width="80" Margin="0,0,12,0" Click="Edit_Button_Click"/>
+                    <Button Content="Opret"   Width="80" Margin="0,0,10,0" Click="New_Button_Click"/>
+                    <Button Content="Rediger" Width="80" Margin="0,0,10,0" Click="Edit_Button_Click"/>
                     <Button Content="Slet"    Width="80" Click="Delete_Button_Click"/>
                 </StackPanel>
             </StackPanel>
