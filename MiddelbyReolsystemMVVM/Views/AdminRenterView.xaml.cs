@@ -1,6 +1,8 @@
 ﻿
-using MiddelbyReolsystemMVVM.Viewmodels;
+using System.IO;
 using System.Windows;
+using MiddelbyReolsystemMVVM.Repositories;
+using MiddelbyReolsystemMVVM.Viewmodels;
 
 namespace MiddelbyReolsystemMVVM.Views
 {
@@ -8,11 +10,18 @@ namespace MiddelbyReolsystemMVVM.Views
     {
         
         private AdminRenterViewModel viewModel;
+
+        public IFileRenterRepository _fileRenterRepository;
+
+
         public AdminRenterView()
         {
             InitializeComponent();
             // MVVM: bind til ViewModel (som bruger WindowService til navigation)
-            viewModel = new AdminRenterViewModel();
+
+          
+            _fileRenterRepository = new FileRenterRepository("Renters.json");
+            viewModel = new AdminRenterViewModel(_fileRenterRepository);
             DataContext = viewModel;
         }
 

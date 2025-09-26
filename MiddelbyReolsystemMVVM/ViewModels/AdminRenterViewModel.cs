@@ -6,12 +6,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using MiddelbyReolsystemMVVM.Views;
+using MiddelbyReolsystemMVVM.Repositories;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class AdminRenterViewModel : BaseViewModel
     {
-        private readonly IRenterService _renterService;
+
+        public IFileRenterRepository _fileRenterRepository;
 
         // Inputs til TextBoxes (Som skal være TwoWay)
         public string FirstName { get; set; } = "";
@@ -26,16 +28,17 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 
         // Data til UI
         public ObservableCollection<Renter> Renters { get; }
-        public Renter? SelectedRenter { get; set; }
+        public Renter? SelectedRenter { get; set; } 
+
 
         // Constructors - som både kender til WindowService og RenterService
-        public AdminRenterViewModel() : this(RenterService.Instance()) { }
+        //public AdminRenterViewModel() : this(RenterService.Instance()) { }
 
-        public AdminRenterViewModel(IRenterService renterService)
+        public AdminRenterViewModel(IFileRenterRepository fileRenterRepository)
         {
-            _renterService = renterService;
+           _fileRenterRepository = fileRenterRepository;
 
-            Renters = new ObservableCollection<Renter>(_renterService.GetAllRenters());
+            Renters = new ObservableCollection<Renter>(_fileRenterRepository.GetAll());
             SelectedRenter = Renters.FirstOrDefault();
         }
         // Navigation
@@ -92,7 +95,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 message = "FEJL: Du skal afkrydse samtykkeerklæringen!";
                 return false;
             }
-            message = "";
+            message = "Reollejer gemt korrekt!";
             return true;
         }
 
@@ -118,13 +121,14 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 ConsentGiven
             );
 
-            _renterService.AddRenter(newRenter); // gem i service/repo
-            Renters.Add(newRenter);              // vis i UI
+            _fileRenterRepository.AddRenter(newRenter); // gem i service/repo
+            Renters.Add(newRenter);
+            _fileRenterRepository.SaveAll(Renters.ToList());// vis i UI
             SelectedRenter = newRenter;
             OnPropertyChanged(nameof(SelectedRenter));
         }
 
-        // ---------- Simple Edit/Delete så bindings ikke fejler ----------
+        // ---------- Simple Edit/Delete så bindings ikke fejler ---------- FIND UD AF HVORDAN MAN KAN OVERSKRIVE DET ÆLDRE REOLLEJER-OBJEKT
         public void LoadFromSelected()
         {
             if (SelectedRenter == null) return;
@@ -146,10 +150,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public void DeleteSelected()
         {
             if (SelectedRenter == null) return;
-
-            var id = SelectedRenter.Id;              
-            _renterService.DeleteRenter(id);         
-            Renters.Remove(SelectedRenter);          
+            _fileRenterRepository.DeleteRenter(SelectedRenter);                  
             SelectedRenter = Renters.FirstOrDefault();
             OnPropertyChanged(nameof(SelectedRenter));
         }
