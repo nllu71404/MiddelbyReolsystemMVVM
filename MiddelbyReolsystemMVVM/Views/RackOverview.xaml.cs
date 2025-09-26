@@ -23,6 +23,12 @@ namespace MiddelbyReolsystemMVVM.Views
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         { e.Cancel = true; this.Hide(); }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            RackViewModel viewModel = (RackViewModel)DataContext;
+            viewModel.ExecuteShowLedige(sender);
+        }
+
         private void OpenAdminRenterViewButton_Click(object sender, RoutedEventArgs e)
         {
             new RackViewModel(fileRackRepository).OpenAdminRenterView();

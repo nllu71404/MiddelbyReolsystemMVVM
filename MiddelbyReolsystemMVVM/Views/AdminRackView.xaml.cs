@@ -17,6 +17,7 @@ namespace MiddelbyReolsystemMVVM.Views
             e.Cancel = true;
             Hide();
         }
+        
 
         private void OpenRackOverview_Button_Click(object sender, RoutedEventArgs e)
         {
