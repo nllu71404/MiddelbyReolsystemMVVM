@@ -11,12 +11,16 @@ namespace MiddelbyReolsystemMVVM.Views
         private RackService _rackService;
         private RackViewModel viewModel;
         private IFileRackRepository fileRackRepository;
+        private AdminRenterViewModel adminRenterViewModel;
+        private IFileRenterRepository fileRenterRepository;
         public RackOverview()
         {
             InitializeComponent();
             _rackService = new RackService();
             fileRackRepository = new FileRackRepository("racks.json", _rackService);
-            viewModel = new RackViewModel(fileRackRepository);
+            fileRenterRepository = new FileRenterRepository("Renters.json");
+            adminRenterViewModel = new AdminRenterViewModel(fileRenterRepository);
+            viewModel = new RackViewModel(fileRackRepository, adminRenterViewModel);
             DataContext = viewModel;
         }
 
@@ -31,17 +35,17 @@ namespace MiddelbyReolsystemMVVM.Views
 
         private void OpenAdminRenterViewButton_Click(object sender, RoutedEventArgs e)
         {
-            new RackViewModel(fileRackRepository).OpenAdminRenterView();
+            new RackViewModel(fileRackRepository, adminRenterViewModel).OpenAdminRenterView();
         }
 
         private void OpenAdminRenterView_Button_Click(object sender, RoutedEventArgs e)
         {
-            new RackViewModel(fileRackRepository).OpenAdminRenterView();
+            new RackViewModel(fileRackRepository, adminRenterViewModel).OpenAdminRenterView();
         }
 
         private void OpenAdminRackView_Button_Click(object sender, RoutedEventArgs e)
         {
-            new RackViewModel(fileRackRepository).OpenAdminRackView();
+            new RackViewModel(fileRackRepository, adminRenterViewModel).OpenAdminRackView();
         }
 
         private void ShowAvailable_Button_Click(object sender, RoutedEventArgs e)
