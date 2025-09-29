@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Xml;
 using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.Services;
@@ -19,22 +20,41 @@ namespace MiddelbyReolsystemMVVM.Repositories
     {
         private readonly string _filePath;
 
+
         private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,
         };
 
         public RackService rackService;
+        public List<Rack> Racks;
 
         public FileRackRepository(string filePath, RackService rackservice)
         {
             rackService = rackservice;
+            Racks = rackservice._predefinedRacks;
+
             _filePath = filePath;
             if (!File.Exists(_filePath))
             {
-                File.WriteAllText(_filePath, "[]");
+                // Førstegang → gem de predefinerede racks til fil
+                Racks = rackservice._predefinedRacks;
+                SaveAll(Racks);
+            }
+            else
+            {
+                var json = File.ReadAllText(_filePath);
+                Racks = JsonConvert.DeserializeObject<List<Rack>>(json, _jsonSettings) ?? new List<Rack>(rackservice._predefinedRacks);
+
+                // Hvis filen er tom, seed igen
+                if (Racks.Count == 0)
+                {
+                    Racks = rackservice._predefinedRacks;
+                    SaveAll(Racks);
+                }
             }
         }
+        
 
         public IEnumerable<Rack> GetAll()
         {
