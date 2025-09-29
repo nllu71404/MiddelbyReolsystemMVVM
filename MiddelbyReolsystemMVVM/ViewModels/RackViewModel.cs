@@ -22,12 +22,12 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public Renter SelectedRenter { get; set; }
 
 
-        public RackViewModel(IFileRackRepository fileRackRepository, AdminRenterViewModel adminRenterViewModel)
+        public RackViewModel(IFileRackRepository fileRackRepository, AdminRenterViewModel _adminRenterViewModel)
         {
-            _fileRackRepository = fileRackRepository;
+            this._fileRackRepository = fileRackRepository;
             
             DisplayedRacks = new ObservableCollection<Rack>();
-            Renters = adminRenterViewModel.Renters;
+            Renters = _adminRenterViewModel.Renters;
         }
 
         public void OpenRackOverview()
