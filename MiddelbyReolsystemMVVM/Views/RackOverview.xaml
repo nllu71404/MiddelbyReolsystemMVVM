@@ -63,7 +63,7 @@
             </ListBox>
 
             <ComboBox ItemsSource="{Binding Renters}" 
-                      SelectedItem="{Binding SelectedRenter, Mode=TwoWay}" 
+                      SelectedItem="{Binding SelectedRenter}" 
                       DisplayMemberPath="FirstName" 
                       Width="250" Margin="0,20,0,0" RenderTransformOrigin="0.564,3.172"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
