@@ -13,7 +13,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
     {
         //private readonly RackService _rackService;
         public IFileRackRepository _fileRackRepository;
-        public IFileRenterRepository _fileRenterRepository;
+
 
         //Opretter ObservableCollection
         public ObservableCollection<Rack> DisplayedRacks { get; set; }
@@ -25,8 +25,9 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public RackViewModel(IFileRackRepository fileRackRepository, AdminRenterViewModel adminRenterViewModel)
         {
             _fileRackRepository = fileRackRepository;
-            Renters = new ObservableCollection<Renter>();
+            
             DisplayedRacks = new ObservableCollection<Rack>();
+            Renters = adminRenterViewModel.Renters;
         }
 
         public void OpenRackOverview()

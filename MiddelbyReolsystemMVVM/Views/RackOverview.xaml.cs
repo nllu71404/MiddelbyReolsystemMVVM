@@ -10,8 +10,10 @@ namespace MiddelbyReolsystemMVVM.Views
         
         private RackService _rackService;
         private RackViewModel viewModel;
-        private AdminRenterViewModel viewModelRenter;
+        
         private IFileRackRepository fileRackRepository;
+
+        private AdminRenterViewModel viewModelRenter;
         private IFileRenterRepository fileRenterRepository;
         public RackOverview()
         {
