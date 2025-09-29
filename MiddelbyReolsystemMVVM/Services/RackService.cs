@@ -99,8 +99,7 @@ namespace MiddelbyReolsystemMVVM.Services
 
         };
 
-       
-
+        public Renter Renter { get; internal set; } //ved ikke om det skal bruges her 
     }
 
  }

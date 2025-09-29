@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiddelbyReolsystemMVVM.Models;
+using MiddelbyReolsystemMVVM.Services;
 
 namespace MiddelbyReolsystemMVVM.Repositories
 {
@@ -19,5 +20,6 @@ namespace MiddelbyReolsystemMVVM.Repositories
         void SaveAll(List<Rack> racks);
 
         public IEnumerable<Rack> GetRacksByStatus(RackStatus status);
+        void UpdateRack(RackService selectedRack);
     }
 }

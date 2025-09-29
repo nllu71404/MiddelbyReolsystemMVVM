@@ -85,5 +85,10 @@ namespace MiddelbyReolsystemMVVM.Repositories
         {
             return rackService._predefinedRacks.Where(r => r.RackStatus == status);
         }
+
+        public void UpdateRack(RackService selectedRack)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

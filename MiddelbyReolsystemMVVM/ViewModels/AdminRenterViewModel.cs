@@ -27,7 +27,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public string ErrorMessage { get; private set; } = "";
 
         // Data til UI
-        public ObservableCollection<Renter> Renters { get; }
+        public ObservableCollection<Renter> Renters { get; } = new ObservableCollection<Renter>();
         public Renter? SelectedRenter { get; set; } 
 
 
@@ -37,8 +37,12 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public AdminRenterViewModel(IFileRenterRepository fileRenterRepository)
         {
            _fileRenterRepository = fileRenterRepository;
+            // Fyld Renters med data fra repository
+            foreach (var renter in _fileRenterRepository.GetAll())
+            {
+                Renters.Add(renter);
+            }
 
-            Renters = new ObservableCollection<Renter>(_fileRenterRepository.GetAll());
             SelectedRenter = Renters.FirstOrDefault();
         }
         // Navigation

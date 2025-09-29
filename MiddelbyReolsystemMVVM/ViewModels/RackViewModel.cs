@@ -17,6 +17,8 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         //Opretter ObservableCollection
         public ObservableCollection<Rack> DisplayedRacks { get; set; }
         public RackService SelectedRack { get; set; }
+        public ObservableCollection<Renter> Renters { get; set; }
+        public Renter SelectedRenter { get; set; }
 
         public RackViewModel(IFileRackRepository _fileRackRepository)
         {
@@ -68,6 +70,36 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             
 
             
+        }
+
+        // Tildeler den valgte lejer til det valgte reolsystem (rack).
+        // Opdaterer reolen i repository og informerer UI om ændringen.
+        public void AssignRenterToSelectedRack()
+        {
+            if (SelectedRack != null && SelectedRenter != null)
+            {
+                // Sætter SelectedRenter som lejer på SelectedRack
+                SelectedRack.Renter = SelectedRenter;
+                // Opdaterer rack i repository
+                _fileRackRepository.UpdateRack(SelectedRack);
+                // Informerer UI om at SelectedRack er ændret
+                OnPropertyChanged(nameof(SelectedRack));
+            }
+        }
+
+        // Fjerner lejeren fra det valgte reolsystem (rack).
+        // Opdaterer reolen i repository og informerer UI om ændringen.
+        public void RemoveRenterFromSelectedRack()
+        {
+            if (SelectedRack != null)
+            {
+                // Fjerner lejeren fra SelectedRack
+                SelectedRack.Renter = null;
+                // Opdaterer rack i repository
+                _fileRackRepository.UpdateRack(SelectedRack);
+                // Informerer UI om at SelectedRack er ændret
+                OnPropertyChanged(nameof(SelectedRack));
+            }
         }
     }
 }

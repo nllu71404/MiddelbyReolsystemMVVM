@@ -58,5 +58,15 @@ namespace MiddelbyReolsystemMVVM.Views
         {
             viewModel.ExecuteShowAndet(sender);
         }
+
+        private void AssignRenter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.AssignRenterToSelectedRack();
+        }
+
+        private void RemoveRenter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.RemoveRenterFromSelectedRack();
+        }
     }
 }
