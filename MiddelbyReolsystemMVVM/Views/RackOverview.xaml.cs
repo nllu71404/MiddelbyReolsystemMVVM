@@ -8,7 +8,7 @@ namespace MiddelbyReolsystemMVVM.Views
     public partial class RackOverview : Window
     {
         
-        private RackService _rackService;
+        //private RackService _rackService;
         private RackViewModel viewModel;
         
         private IFileRackRepository fileRackRepository;
@@ -18,10 +18,10 @@ namespace MiddelbyReolsystemMVVM.Views
         public RackOverview()
         {
             InitializeComponent();
-            _rackService = new RackService();
+            //_rackService = new RackService();
 
-            fileRackRepository = new FileRackRepository("racks.json", _rackService);
-            fileRenterRepository = new FileRenterRepository("Renter.json");
+            fileRackRepository = new FileRackRepository("racks.json");
+            fileRenterRepository = new FileRenterRepository("Renters.json");
 
             adminRenterViewModel = new AdminRenterViewModel(fileRenterRepository);
             viewModel = new RackViewModel(fileRackRepository, adminRenterViewModel);
