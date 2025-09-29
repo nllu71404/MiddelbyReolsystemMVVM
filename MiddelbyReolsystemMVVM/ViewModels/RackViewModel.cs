@@ -1,11 +1,12 @@
-﻿using MiddelbyReolsystemMVVM.Models;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
+using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.Repositories;
 using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.ViewModels;
 using MiddelbyReolsystemMVVM.Views;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
@@ -22,12 +23,12 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         public Renter SelectedRenter { get; set; }
 
 
-        public RackViewModel(IFileRackRepository _fileRackRepository, AdminRenterViewModel _adminRenterViewModel)
+        public RackViewModel(IFileRackRepository fileRackRepository, AdminRenterViewModel adminRenterViewModel)
         {
-            this._fileRackRepository = _fileRackRepository;
+            this._fileRackRepository = fileRackRepository;
             
             DisplayedRacks = new ObservableCollection<Rack>();
-            Renters = _adminRenterViewModel.Renters;
+            Renters = adminRenterViewModel.Renters;
         }
 
         public void OpenRackOverview()
@@ -49,7 +50,9 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         }
         public void ExecuteShowLedige(object parameter)
         {
+            MessageBox.Show("ExecuteShowLedige kaldt!");
             var ledigeRacks = _fileRackRepository.GetRacksByStatus(RackStatus.Available);
+            MessageBox.Show($"Fandt {ledigeRacks.Count()} ledige racks");
             UpdateDisplayedRacks(ledigeRacks);
         }
         public void ExecuteShowOptaget(object parameter)
@@ -67,7 +70,16 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         private void UpdateDisplayedRacks(IEnumerable<Rack> racks)
         {
             var rackList = racks.ToList();
-            DisplayedRacks = new ObservableCollection<Rack>(rackList);
+            Console.WriteLine($"UpdateDisplayedRacks kaldt med {rackList.Count} racks");
+
+            DisplayedRacks.Clear();
+
+            foreach(var rack in rackList)
+            {
+                DisplayedRacks.Add(rack);
+                Console.WriteLine($"Tilføjet rack {rack.RackNumber} til DisplayedRacks");
+            }
+            // SKAL TILBAGE - DisplayedRacks = new ObservableCollection<Rack>(rackList);
 
             OnPropertyChanged(nameof(DisplayedRacks));
             
@@ -79,9 +91,9 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         // Opdaterer reolen i repository og informerer UI om ændringen.
         public void AssignRenterToSelectedRack()
         {
-            if (SelectedRack == null && SelectedRenter != null)
+            if (SelectedRack != null && SelectedRenter != null)
             {
-                SelectedRack.renter = SelectedRenter;
+                SelectedRack.Renter = SelectedRenter;
 
                 _fileRackRepository.UpdateRackStatus(SelectedRack.RackNumber, RackStatus.Occupied);
 
@@ -109,7 +121,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             if (SelectedRack != null)
             {
                 // Fjerner lejeren fra SelectedRack
-                SelectedRack.renter = null;
+                SelectedRack.Renter = null;
                 // Opdaterer rack i repository
                 _fileRackRepository.UpdateRack(SelectedRack);
                 // Informerer UI om at SelectedRack er ændret

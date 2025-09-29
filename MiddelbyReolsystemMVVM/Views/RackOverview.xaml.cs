@@ -23,7 +23,7 @@ namespace MiddelbyReolsystemMVVM.Views
             fileRackRepository = new FileRackRepository("racks.json");
             fileRenterRepository = new FileRenterRepository("Renters.json");
 
-            adminRenterViewModel = new AdminRenterViewModel(fileRenterRepository);
+            var adminRenterViewModel = new AdminRenterViewModel(fileRenterRepository);
             viewModel = new RackViewModel(fileRackRepository, adminRenterViewModel);
             
             DataContext = viewModel;

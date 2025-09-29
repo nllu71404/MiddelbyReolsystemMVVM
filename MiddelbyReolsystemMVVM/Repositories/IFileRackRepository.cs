@@ -11,7 +11,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
 {
     public interface IFileRackRepository
     {
-        public List<Rack> GetAll();
+        public IEnumerable<Rack> GetAll();
         Rack GetRack(Rack rack);
         void AddRack(Rack rack);
         void UpdateRack(Rack rack);
@@ -19,7 +19,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
 
         void SaveAll(List<Rack> racks);
         public IEnumerable<Rack> GetRacksByStatus(RackStatus status);
-        //public IEnumerable<Rack> GetRacksByStatus(RackStatus status);
+        
         void UpdateRackStatus(int RackNumber, RackStatus newStatus);
     }
 }

@@ -12,7 +12,13 @@ namespace MiddelbyReolsystemMVVM.Models
         public int RackNumber { get; set; }
         public RackStatus RackStatus { get; set; }
         public RackType RackType { get; set; }
-        public Renter renter { get; set; }   
+        public Renter Renter { get; set; }
+
+        //Nødvendig for JSON deserialisering
+        public Rack()
+        {
+
+        }
         public Rack(int rackNumber, RackStatus rackStatus, RackType rackType)
         {
             RackNumber = rackNumber;

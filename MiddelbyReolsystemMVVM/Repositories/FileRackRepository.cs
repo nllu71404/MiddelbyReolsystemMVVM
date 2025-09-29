@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Xml;
 using MiddelbyReolsystemMVVM.Models;
@@ -19,16 +20,15 @@ namespace MiddelbyReolsystemMVVM.Repositories
     public class FileRackRepository : IFileRackRepository
     {
         private readonly string _filePath;
+        private List<Rack> _racks;
 
         private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,
         };
 
-        private List<Rack> _racks;
-
-        public List<Rack> _predefinedRacks = new List<Rack>
-        {
+         private List<Rack> _predefinedRacks = new List<Rack>
+            {
                 new Rack(1, RackStatus.Occupied, RackType.Standard),
                 new Rack(2, RackStatus.Available, RackType.Premium),
                 new Rack(3, RackStatus.Occupied, RackType.Premium),
@@ -117,7 +117,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
                 new Rack(79, RackStatus.Other, RackType.Premium),
                 new Rack(80, RackStatus.Available, RackType.Premium),
 
-        };
+             };
 
 
         
@@ -146,7 +146,51 @@ namespace MiddelbyReolsystemMVVM.Repositories
                 }
             }
         }
-        public List<Rack> GetAll() => _racks;
+
+        public IEnumerable<Rack> GetAll()
+        {
+            return _racks;
+        }
+
+        public IEnumerable<Rack> GetRacksByStatus(RackStatus status)
+        {
+            //Debug
+            MessageBox.Show($"Søger efter status: Id={status.Id}, Name={status.Name}");
+
+            var result = _racks.Where(r => r.RackStatus?.Id == status.Id).ToList();
+            /*
+            // DEBUG: Print hvad hver rack har
+            foreach (var rack in _racks.Take(5)) // Kun de første 5 for ikke at spamme
+            {
+                Console.WriteLine($"Rack {rack.RackNumber}: Status Id={rack.RackStatus?.Id}, Name={rack.RackStatus?.Name}");
+            }
+
+            var result = _racks.Where(r => r.RackStatus?.Id == status.Id);
+
+            Console.WriteLine($"Fandt {result} racks");
+
+            return result;
+            */
+
+            MessageBox.Show($"Fandt {result.Count} racks");
+
+            return result;
+        }
+
+
+        public void UpdateRackStatus(int RackNumber, RackStatus newStatus)
+        {
+            var racks = _racks.FirstOrDefault(r => r.RackNumber == RackNumber);
+
+            if (_racks == null)
+            {
+                throw new KeyNotFoundException($"Reol {RackNumber} findes ikke");
+            }
+
+            racks.RackStatus = newStatus;
+            SaveAll(_racks);
+        }
+        //public List<Rack> GetAll() => _racks;
         /*
         public IEnumerable<Rack> GetAll()
         {
@@ -194,24 +238,6 @@ namespace MiddelbyReolsystemMVVM.Repositories
             File.WriteAllText(_filePath, json);
         }
 
-        public IEnumerable<Rack> GetRacksByStatus(RackStatus status)
-        {
-            return _predefinedRacks.Where(r => r.RackStatus == status);
-        }
-
-        public void UpdateRackStatus(int RackNumber, RackStatus newStatus)
-        {
-            var _racks = GetAll().ToList();
-            var racks = _racks.FirstOrDefault(r => r.RackNumber == RackNumber);
-
-            if (_racks == null)
-            {
-                throw new KeyNotFoundException($"Reol {RackNumber} findes ikke");
-            }
-
-            racks.RackStatus = newStatus;
-            SaveAll(_racks);
-
-        }
+        
     }
 }
