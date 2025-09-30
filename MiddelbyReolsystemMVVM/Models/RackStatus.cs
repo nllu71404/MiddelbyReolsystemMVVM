@@ -17,8 +17,8 @@ namespace MiddelbyReolsystemMVVM.Models
         public static readonly RackStatus Occupied = new RackStatus(2, "Optaget");
         public static readonly RackStatus Other = new RackStatus(3, "Andet");
 
-        public int Id { get; private set; }
-        public string Name { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         public RackStatus() { }
 

@@ -7,7 +7,7 @@ using MiddelbyReolsystemMVVM.Models;
 
 namespace MiddelbyReolsystemMVVM.Services
 {
-    public class predefinedRacks
+    /*public class predefinedRacks
     {
         public List<Rack> _predefinedRacks = new List<Rack>
         {
@@ -103,4 +103,5 @@ namespace MiddelbyReolsystemMVVM.Services
 
         public Renter Renter { get; internal set; } //ved ikke om det skal bruges her 
     }
+    */
 }

@@ -50,9 +50,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         }
         public void ExecuteShowLedige(object parameter)
         {
-            MessageBox.Show("ExecuteShowLedige kaldt!");
             var ledigeRacks = _fileRackRepository.GetRacksByStatus(RackStatus.Available);
-            MessageBox.Show($"Fandt {ledigeRacks.Count()} ledige racks");
             UpdateDisplayedRacks(ledigeRacks);
         }
         public void ExecuteShowOptaget(object parameter)
@@ -70,21 +68,12 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         private void UpdateDisplayedRacks(IEnumerable<Rack> racks)
         {
             var rackList = racks.ToList();
-            Console.WriteLine($"UpdateDisplayedRacks kaldt med {rackList.Count} racks");
 
             DisplayedRacks.Clear();
-
             foreach(var rack in rackList)
             {
                 DisplayedRacks.Add(rack);
-                Console.WriteLine($"Tilføjet rack {rack.RackNumber} til DisplayedRacks");
             }
-            // SKAL TILBAGE - DisplayedRacks = new ObservableCollection<Rack>(rackList);
-
-            OnPropertyChanged(nameof(DisplayedRacks));
-            
-
-            
         }
 
         // Tildeler den valgte lejer til det valgte reolsystem (rack).

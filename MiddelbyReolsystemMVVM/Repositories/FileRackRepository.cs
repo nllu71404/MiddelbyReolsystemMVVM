@@ -25,6 +25,8 @@ namespace MiddelbyReolsystemMVVM.Repositories
         private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,
+            PreserveReferencesHandling = PreserveReferencesHandling.None,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         };
 
          private List<Rack> _predefinedRacks = new List<Rack>
@@ -138,6 +140,36 @@ namespace MiddelbyReolsystemMVVM.Repositories
                 var json = File.ReadAllText(_filePath);
                 _racks = JsonConvert.DeserializeObject<List<Rack>>(json, _jsonSettings) ?? new List<Rack>(_predefinedRacks);
 
+
+                // DEBUG: Tjek hvad Id er INDEN normalisering
+                System.Diagnostics.Debug.WriteLine($"Rack 1 INDEN: Status Id={_racks[0].RackStatus?.Id ?? -1}");
+                System.Diagnostics.Debug.WriteLine($"Rack 2 INDEN: Status Id={_racks[1].RackStatus?.Id ?? -1}");
+
+
+
+                foreach (var rack in _racks)
+                {
+                    if (rack.RackStatus != null)
+                    {
+                        rack.RackStatus = rack.RackStatus.Id switch
+                        {
+                            1 => RackStatus.Available,
+                            2 => RackStatus.Occupied,
+                            3 => RackStatus.Other,
+                            _ => RackStatus.Other
+                        };
+                    }
+
+                    if (rack.RackType != null)
+                    {
+                        rack.RackType = rack.RackType.Id switch
+                        {
+                            1 => RackType.Standard,
+                            2 => RackType.Premium,
+                            _ => RackType.Standard
+                        };
+                    }
+                }
                 // Hvis filen er tom, seed igen
                 if (_racks.Count == 0)
                 {
@@ -154,27 +186,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
 
         public IEnumerable<Rack> GetRacksByStatus(RackStatus status)
         {
-            //Debug
-            MessageBox.Show($"Søger efter status: Id={status.Id}, Name={status.Name}");
-
-            var result = _racks.Where(r => r.RackStatus?.Id == status.Id).ToList();
-            /*
-            // DEBUG: Print hvad hver rack har
-            foreach (var rack in _racks.Take(5)) // Kun de første 5 for ikke at spamme
-            {
-                Console.WriteLine($"Rack {rack.RackNumber}: Status Id={rack.RackStatus?.Id}, Name={rack.RackStatus?.Name}");
-            }
-
-            var result = _racks.Where(r => r.RackStatus?.Id == status.Id);
-
-            Console.WriteLine($"Fandt {result} racks");
-
-            return result;
-            */
-
-            MessageBox.Show($"Fandt {result.Count} racks");
-
-            return result;
+            return _racks.Where(r => r.RackStatus?.Id == status.Id).ToList();
         }
 
 
