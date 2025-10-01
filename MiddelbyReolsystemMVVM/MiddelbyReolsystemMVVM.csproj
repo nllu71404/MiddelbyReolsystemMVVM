@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\predefinedRacks.cs" />
+    <Compile Remove="Services\RackService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\MiddelbyLogo.png" />
     <None Remove="Images\Oversigt.png" />
   </ItemGroup>

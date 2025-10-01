@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using MiddelbyReolsystemMVVM.Models;
 
 namespace MiddelbyReolsystemMVVM.Services
 {
-    /*public class RackService 
+    /*public class predefinedRacks
     {
-       
-
         public List<Rack> _predefinedRacks = new List<Rack>
         {
                 new Rack(1, RackStatus.Occupied, RackType.Standard),
@@ -102,6 +104,4 @@ namespace MiddelbyReolsystemMVVM.Services
         public Renter Renter { get; internal set; } //ved ikke om det skal bruges her 
     }
     */
-
- }
-
+}

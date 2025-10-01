@@ -1,11 +1,12 @@
-﻿using MiddelbyReolsystemMVVM.Models;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
+using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.Repositories;
 using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.ViewModels;
 using MiddelbyReolsystemMVVM.Views;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace MiddelbyReolsystemMVVM.Viewmodels
 {
@@ -14,18 +15,20 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         //private readonly RackService _rackService;
         public IFileRackRepository _fileRackRepository;
 
+
         //Opretter ObservableCollection
         public ObservableCollection<Rack> DisplayedRacks { get; set; }
-        public RackService SelectedRack { get; set; }
+        public Rack SelectedRack { get; set; }
         public ObservableCollection<Renter> Renters { get; set; }
         public Renter SelectedRenter { get; set; }
 
-        public RackViewModel(IFileRackRepository _fileRackRepository, AdminRenterViewModel _adminRenterViewModel)
-        {
-            this._fileRackRepository = _fileRackRepository;
-            DisplayedRacks = new ObservableCollection<Rack>();
-            Renters = _adminRenterViewModel.Renters;
 
+        public RackViewModel(IFileRackRepository fileRackRepository, AdminRenterViewModel adminRenterViewModel)
+        {
+            this._fileRackRepository = fileRackRepository;
+            
+            DisplayedRacks = new ObservableCollection<Rack>();
+            Renters = adminRenterViewModel.Renters;
         }
 
         public void OpenRackOverview()
@@ -65,18 +68,29 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         private void UpdateDisplayedRacks(IEnumerable<Rack> racks)
         {
             var rackList = racks.ToList();
-            DisplayedRacks = new ObservableCollection<Rack>(rackList);
 
-            OnPropertyChanged(nameof(DisplayedRacks));
-            
-
-            
+            DisplayedRacks.Clear();
+            foreach(var rack in rackList)
+            {
+                DisplayedRacks.Add(rack);
+            }
         }
 
         // Tildeler den valgte lejer til det valgte reolsystem (rack).
         // Opdaterer reolen i repository og informerer UI om ændringen.
         public void AssignRenterToSelectedRack()
         {
+            if (SelectedRack != null && SelectedRenter != null)
+            {
+                SelectedRack.Renter = SelectedRenter;
+
+                _fileRackRepository.UpdateRackStatus(SelectedRack.RackNumber, RackStatus.Occupied);
+
+                OnPropertyChanged(nameof(SelectedRack));
+                OnPropertyChanged(nameof(DisplayedRacks));
+            }
+
+            /*
             if (SelectedRack != null && SelectedRenter != null)
             {
                 // Sætter SelectedRenter som lejer på SelectedRack
@@ -86,6 +100,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 // Informerer UI om at SelectedRack er ændret
                 OnPropertyChanged(nameof(SelectedRack));
             }
+            */
         }
 
         // Fjerner lejeren fra det valgte reolsystem (rack).
