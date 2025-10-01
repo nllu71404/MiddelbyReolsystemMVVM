@@ -35,6 +35,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
             {
                 var json = File.ReadAllText(_filepathRenter);
                 _renters = JsonConvert.DeserializeObject<List<Renter>>(json, _jsonSettings) ?? new List<Renter>();
+                System.Diagnostics.Debug.WriteLine($"LOADET {_renters.Count} renters fra fil");
             }
         }
 
@@ -65,9 +66,16 @@ namespace MiddelbyReolsystemMVVM.Repositories
 
         public void DeleteRenter(Renter renter)
         {
-            var renters = GetAll().ToList();
-            renters.RemoveAll(r => r.Id == renter.Id);
-            SaveAll(renters);
+            System.Diagnostics.Debug.WriteLine($"INDEN DELETE: {_renters.Count} renters");
+            System.Diagnostics.Debug.WriteLine($"Sletter renter med Id: {renter.Id}");
+
+            // Slet DIREKTE fra _renters
+            _renters.RemoveAll(r => r.Id == renter.Id);
+
+            System.Diagnostics.Debug.WriteLine($"EFTER DELETE: {_renters.Count} renters");
+
+            // Gem den opdaterede _renters liste
+            SaveAll(_renters);
         }
         
         public void UpdateRenter(Renter renter)
