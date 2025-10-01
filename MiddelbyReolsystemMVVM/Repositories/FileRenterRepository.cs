@@ -16,6 +16,8 @@ namespace MiddelbyReolsystemMVVM.Repositories
     public class FileRenterRepository : IFileRenterRepository
     {
         private readonly string _filepathRenter;
+        private List<Renter> _renters;
+
         private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,
@@ -28,6 +30,11 @@ namespace MiddelbyReolsystemMVVM.Repositories
             if (!File.Exists(_filepathRenter))
             {
                 File.WriteAllText(_filepathRenter, "[]");
+            }
+            else
+            {
+                var json = File.ReadAllText(_filepathRenter);
+                _renters = JsonConvert.DeserializeObject<List<Renter>>(json, _jsonSettings) ?? new List<Renter>();
             }
         }
 
