@@ -61,6 +61,11 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             adminRackView.Show();
         }
 
+        public void AddRenter(Renter newRenter)
+        {
+            Renters.Add(newRenter);
+        }
+
 
         // ---------- Workflow ----------
 

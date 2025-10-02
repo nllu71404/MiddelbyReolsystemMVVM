@@ -39,8 +39,12 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             this._fileRackRepository = fileRackRepository;
             
             DisplayedRacks = new ObservableCollection<Rack>();
-            //Undgå null expression, så programmet ikke crasher
-            Renters = adminRenterViewModel?.Renters ?? new ObservableCollection<Renter>(); 
+
+
+            if (adminRenterViewModel != null)
+                Renters = adminRenterViewModel.Renters;
+            else
+                Renters = new ObservableCollection<Renter>();
             
         }
 
