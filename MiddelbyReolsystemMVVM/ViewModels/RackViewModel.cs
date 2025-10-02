@@ -14,13 +14,24 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         //private readonly RackService _rackService;
         public IFileRackRepository _fileRackRepository;
 
+        // Hvilken knap er aktiv
+        private RackStatus _currentFilter = null;
 
         //Opretter ObservableCollection
-        public ObservableCollection<Rack> DisplayedRacks { get; set; }
+        public ObservableCollection<Rack> _displayedRacks;
         public Rack SelectedRack { get; set; }
         public ObservableCollection<Renter> Renters { get; set; }
         public Renter SelectedRenter { get; set; }
 
+        public ObservableCollection<Rack> DisplayedRacks
+        {
+            get => _displayedRacks;
+            set
+            {
+                _displayedRacks = value;
+                OnPropertyChanged(nameof(DisplayedRacks));
+            }
+        }
 
         public RackViewModel(IFileRackRepository fileRackRepository, AdminRenterViewModel adminRenterViewModel)
         {
@@ -63,6 +74,13 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             var andetRacks = _fileRackRepository.GetRacksByStatus(RackStatus.Other);
             UpdateDisplayedRacks(andetRacks);
         }
+
+        public void ShowAvailableRacks()
+        {
+            _currentFilter = RackStatus.Available;
+            var racks = _fileRackRepository.GetRacksByStatus(RackStatus.Available);
+            UpdateDisplayedRacks(racks);
+        }
         
         private void UpdateDisplayedRacks(IEnumerable<Rack> racks)
         {
@@ -90,9 +108,28 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 // Gemmer den opdaterede Rack i repository
                 _fileRackRepository.UpdateRack(SelectedRack);
 
+                var filteredRacks = _currentFilter != null
+                    ? _fileRackRepository.GetRacksByStatus(_currentFilter)
+                    : _fileRackRepository.GetAll();
+
+                UpdateDisplayedRacks(filteredRacks);
+
                 //Sender besked til UI
                 OnPropertyChanged(nameof(SelectedRack));
                 OnPropertyChanged(nameof(DisplayedRacks));
+
+
+                /*
+                //Hent tidligere filer
+                if (_currentFilter != null)
+                {
+                    var filteredRacks = _fileRackRepository.GetRacksByStatus(_currentFilter);
+                    UpdateDisplayedRacks(filteredRacks);
+                }
+                */
+
+
+
             }
         }
 

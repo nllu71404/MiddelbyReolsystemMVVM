@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 
 namespace MiddelbyReolsystemMVVM.Models
 {
-    //[Newtonsoft.Json.JsonConverter(typeof(RackStatusJsonConverter))]
     public class RackStatus
     {
         public static readonly RackStatus Available = new RackStatus(1, "Ledig");
@@ -26,12 +25,6 @@ namespace MiddelbyReolsystemMVVM.Models
             Id = id;
             Name = name;
         }
-        /*
-        public static IEnumerable<RackStatus> GetAll()
-        {
-            return new[] { Available, Occupied, Other };
-        }
-        */
 
         public override bool Equals(object obj)
         {
