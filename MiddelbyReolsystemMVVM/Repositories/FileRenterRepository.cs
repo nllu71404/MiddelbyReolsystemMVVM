@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using MiddelbyReolsystemMVVM.Models;
-using MiddelbyReolsystemMVVM.Services;
 using Newtonsoft.Json;
 using Formatting = Newtonsoft.Json.Formatting;
 
@@ -22,7 +21,7 @@ namespace MiddelbyReolsystemMVVM.Repositories
         {
             Formatting = Formatting.Indented,
         };
-        public RenterService renterService;
+        //public RenterService renterService;
 
         public FileRenterRepository(string filepathRenter)
         {

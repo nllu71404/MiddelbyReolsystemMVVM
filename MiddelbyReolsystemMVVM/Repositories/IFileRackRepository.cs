@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiddelbyReolsystemMVVM.Models;
-using MiddelbyReolsystemMVVM.Services;
 
 namespace MiddelbyReolsystemMVVM.Repositories
 {

@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using MiddelbyReolsystemMVVM.Models;
 using MiddelbyReolsystemMVVM.Repositories;
-using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.ViewModels;
 using MiddelbyReolsystemMVVM.Views;
 

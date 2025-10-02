@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using MiddelbyReolsystemMVVM.Models.Converters;
 using Newtonsoft.Json;
 
 namespace MiddelbyReolsystemMVVM.Models

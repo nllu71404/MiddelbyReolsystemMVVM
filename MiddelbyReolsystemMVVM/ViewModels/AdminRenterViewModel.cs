@@ -1,5 +1,4 @@
 ﻿using MiddelbyReolsystemMVVM.Models;
-using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.ViewModels;       
 using System;
 using System.Collections.ObjectModel;

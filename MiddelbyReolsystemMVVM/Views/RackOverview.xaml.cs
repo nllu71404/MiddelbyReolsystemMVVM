@@ -1,5 +1,4 @@
 ﻿using MiddelbyReolsystemMVVM.Repositories;
-using MiddelbyReolsystemMVVM.Services;
 using MiddelbyReolsystemMVVM.Viewmodels;
 using System.Windows;
 

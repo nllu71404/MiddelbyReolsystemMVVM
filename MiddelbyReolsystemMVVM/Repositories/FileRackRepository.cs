@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Xml;
 using MiddelbyReolsystemMVVM.Models;
-using MiddelbyReolsystemMVVM.Services;
 using Newtonsoft.Json;
 using Remotion.Linq.Collections;
 using Formatting = Newtonsoft.Json.Formatting;
