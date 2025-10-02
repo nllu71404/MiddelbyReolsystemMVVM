@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using MiddelbyReolsystemMVVM.Models;
@@ -38,7 +39,9 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             this._fileRackRepository = fileRackRepository;
             
             DisplayedRacks = new ObservableCollection<Rack>();
-            Renters = adminRenterViewModel.Renters;
+            //Undgå null expression, så programmet ikke crasher
+            Renters = adminRenterViewModel?.Renters ?? new ObservableCollection<Renter>(); 
+            
         }
 
         public void OpenRackOverview()
@@ -92,66 +95,68 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 DisplayedRacks.Add(rack);
             }
         }
-
-        // Tildeler den valgte lejer til det valgte reolsystem (rack).
-        // Opdaterer reolen i repository og informerer UI om ændringen.
-        public void AssignRenterToSelectedRack()
+        
+        private void RefreshSingleRack(Rack rack)
         {
-            if (SelectedRack != null && SelectedRenter != null)
+            if (rack == null) return;
+
+            // Findes racket på listen
+            var existing = DisplayedRacks.FirstOrDefault(r => r.RackNumber == rack.RackNumber);
+
+            // Bestemmer om Rack skal vises i det aktuelle filter
+            bool matchesFilter = _currentFilter == null || rack.RackStatus == _currentFilter;
+
+            if (existing != null && !matchesFilter)
             {
-                // Tildeler Renter til Reol
-                SelectedRack.Renter = SelectedRenter;
-
-                //Opdaterer fra Ledig til optaget
-                SelectedRack.RackStatus = RackStatus.Occupied;
-
-                // Gemmer den opdaterede Rack i repository
-                _fileRackRepository.UpdateRack(SelectedRack);
-
-                var filteredRacks = _currentFilter != null
-                    ? _fileRackRepository.GetRacksByStatus(_currentFilter)
-                    : _fileRackRepository.GetAll();
-
-                UpdateDisplayedRacks(filteredRacks);
-
-                //Sender besked til UI
-                OnPropertyChanged(nameof(SelectedRack));
-                OnPropertyChanged(nameof(DisplayedRacks));
-
-
-                /*
-                //Hent tidligere filer
-                if (_currentFilter != null)
-                {
-                    var filteredRacks = _fileRackRepository.GetRacksByStatus(_currentFilter);
-                    UpdateDisplayedRacks(filteredRacks);
-                }
-                */
-
-
-
+                // Sletter et Rack fra listen hvis det ikke matcher filteret
+                DisplayedRacks.Remove(existing);
+            }
+            else if (existing == null && matchesFilter)
+            {
+                // Tilføjer Rack til listen der matcher filteret
+                DisplayedRacks.Add(rack);
+            }
+            else if (existing != null && matchesFilter)
+            {
+                // Opdateret UI hvis DisplayedRack matcher filteret
+                int index = DisplayedRacks.IndexOf(existing);
+                DisplayedRacks[index] = rack; // Triggerer UI opdatering
             }
         }
+        //Tildeler Lejer til Reol
+        public void AssignRenterToSelectedRack()
+        {
+            if (SelectedRack == null || SelectedRenter == null)
+                return;
 
-        // Fjerner lejeren fra det valgte reolsystem (rack).
-        // Opdaterer reolen i repository og informerer UI om ændringen.
+            SelectedRack.Renter = SelectedRenter;
+            SelectedRack.RackStatus = RackStatus.Occupied;
+
+            _fileRackRepository.UpdateRack(SelectedRack);
+
+            // Opdater kun denne rack i UI
+            RefreshSingleRack(SelectedRack);
+
+            // Informerer UI om SelectedRack
+            OnPropertyChanged(nameof(SelectedRack));
+        }
+
+        // Fjerner lejer fra SelectedRack
         public void RemoveRenterFromSelectedRack()
         {
-            if (SelectedRack != null)
-            {
-                // Fjerner lejeren fra SelectedRack
-                SelectedRack.Renter = null;
+            if (SelectedRack == null)
+                return;
 
-                //Opdaterer fra Optaget til Ledig
-                SelectedRack.RackStatus = RackStatus.Available;
+            SelectedRack.Renter = null;
+            SelectedRack.RackStatus = RackStatus.Available;
 
-                // Opdaterer rack i repository
-                _fileRackRepository.UpdateRack(SelectedRack);
+            _fileRackRepository.UpdateRack(SelectedRack);
 
-                // Informerer UI om at SelectedRack er ændret
-                OnPropertyChanged(nameof(SelectedRack));
-                OnPropertyChanged(nameof(DisplayedRacks));
-            }
+            // Opdater kun denne rack i UI
+            RefreshSingleRack(SelectedRack);
+
+            // Informerer UI om SelectedRack
+            OnPropertyChanged(nameof(SelectedRack));
         }
     }
 }

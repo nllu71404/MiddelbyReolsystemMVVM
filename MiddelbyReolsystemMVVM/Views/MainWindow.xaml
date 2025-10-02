@@ -44,7 +44,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" >
             <Button Content="Reoloversigt" Click="OpenRackOverview_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
             <Button Content="Administrér reollejere" Click="OpenAdminRenterView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
-            <Button Content="Administrér reoler" Click="OpenAdminRackView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
+            <Button Content="Opret vare" Click="OpenAdminRackView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
         </StackPanel>
         <Image Source="/Images/MiddelbyLogo.png" Width="450" Height="450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0"/>
         <Grid>

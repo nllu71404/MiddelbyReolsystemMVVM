@@ -78,7 +78,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,-50">
                     <Button Content="Reoloversigt" Background="#FFCC99A0" IsEnabled="False" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
                     <Button Content="Administrér reollejere" Click="OpenAdminRenterView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
-                    <Button Content="Administrér reoler" Click="OpenAdminRackView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
+                    <Button Content="Opret vare" Click="OpenAdminRackView_Button_Click" Width="190" Height="50" Margin="10" FontWeight="Bold" FontSize="16"/>
                 </StackPanel>
                 <Image Height="590" Source="/Images/Oversigt.png" Width="382" RenderTransformOrigin="0.5,0.5">
                     <Image.RenderTransform>

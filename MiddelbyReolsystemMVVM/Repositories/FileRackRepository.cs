@@ -201,19 +201,6 @@ namespace MiddelbyReolsystemMVVM.Repositories
             racks.RackStatus = newStatus;
             SaveAll(_racks);
         }
-        //public List<Rack> GetAll() => _racks;
-        /*
-        public IEnumerable<Rack> GetAll()
-        {
-            if (!File.Exists(_filePath))
-            {
-                return new List<Rack>();
-            }
-            var json = File.ReadAllText(_filePath);
-            return JsonConvert.DeserializeObject<List<Rack>>(json, _jsonSettings) ?? new List<Rack> { };
-        }
-        */
-
         public Rack GetRack(Rack rack)
         {
             GetAll().FirstOrDefault(r => r.RackNumber == rack.RackNumber);      // Returnerer alle rackobjekter, og søger gennem collectionen efter et rack med samme RackNumber som det givne rack

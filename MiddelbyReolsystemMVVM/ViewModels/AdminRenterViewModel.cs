@@ -31,8 +31,6 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 
 
         // Constructors - som både kender til WindowService og RenterService
-        //public AdminRenterViewModel() : this(RenterService.Instance()) { }
-
         public AdminRenterViewModel(IFileRenterRepository fileRenterRepository)
         {
            _fileRenterRepository = fileRenterRepository;
