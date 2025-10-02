@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\predefinedRacks.cs" />
-    <Compile Remove="Services\RackService.cs" />
+    <Compile Remove="Models\Converters\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Models\Converters\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Models\Converters\**" />
+    <None Remove="Services\**" />
+    <Page Remove="Models\Converters\**" />
+    <Page Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
