@@ -89,7 +89,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             UpdateDisplayedRacks(racks);
         }
         
-        private void UpdateDisplayedRacks(IEnumerable<Rack> racks)
+        public void UpdateDisplayedRacks(IEnumerable<Rack> racks)
         {
             var rackList = racks.ToList();
 
@@ -100,7 +100,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
             }
         }
         
-        private void RefreshSingleRack(Rack rack)
+        public void RefreshSingleRack(Rack rack)
         {
             if (rack == null) return;
 

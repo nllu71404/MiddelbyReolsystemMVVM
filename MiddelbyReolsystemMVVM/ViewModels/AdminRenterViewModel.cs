@@ -65,8 +65,6 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
         {
             Renters.Add(newRenter);
         }
-
-
         // ---------- Workflow ----------
 
         public void ClearInputs()

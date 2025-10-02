@@ -6,9 +6,6 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
 {
     public class AdminRackViewModel
     {
-        public ICommand GoRackOverview { get; }
-        public ICommand GoAdminRenter { get; }
-
         public void OpenRackOverview()
         {
             var rackOverview = new RackOverview();
