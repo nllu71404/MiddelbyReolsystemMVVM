@@ -125,7 +125,7 @@ namespace MiddelbyReolsystemMVVM.Viewmodels
                 ConsentGiven
             );
 
-            _fileRenterRepository.AddRenter(newRenter); // gem i service/repo
+           //_fileRenterRepository.AddRenter(newRenter); -- Dobbeltkonfekt 
             Renters.Add(newRenter);
             _fileRenterRepository.SaveAll(Renters.ToList());// vis i UI
             SelectedRenter = newRenter;
