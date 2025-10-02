@@ -68,12 +68,10 @@ namespace MiddelbyReolsystemMVVM.Repositories
             System.Diagnostics.Debug.WriteLine($"INDEN DELETE: {_renters.Count} renters");
             System.Diagnostics.Debug.WriteLine($"Sletter renter med Id: {renter.Id}");
 
-            // Slet DIREKTE fra _renters
             _renters.RemoveAll(r => r.Id == renter.Id);
 
             System.Diagnostics.Debug.WriteLine($"EFTER DELETE: {_renters.Count} renters");
 
-            // Gem den opdaterede _renters liste
             SaveAll(_renters);
         }
         
