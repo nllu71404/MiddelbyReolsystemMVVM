@@ -236,11 +236,11 @@ namespace MiddelbyReolsystemMVVM.Repositories
 
         public void UpdateRack(Rack rack)
         {
-            var racks = GetAll().ToList();
-            var index = racks.FindIndex(r => r.RackNumber == rack.RackNumber);
+            //var racks = GetAll().ToList();
+            var index = _racks.FindIndex(r => r.RackNumber == rack.RackNumber);
             if (index == -1) throw new KeyNotFoundException("Reolnummer blev ikke fundet");
 
-            racks[index] = rack;
+            _racks[index] = rack;
             SaveAll(_racks);
         }
         public void SaveAll(List<Rack> racks)
